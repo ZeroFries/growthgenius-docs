@@ -315,16 +315,48 @@
             <a href="#authentication" class="toc-h1 toc-link" data-title="Authentication">Authentication</a>
           </li>
           <li>
-            <a href="#kittens" class="toc-h1 toc-link" data-title="Kittens">Kittens</a>
+            <a href="#contact-api" class="toc-h1 toc-link" data-title="Contact API">Contact API</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#get-all-kittens" class="toc-h2 toc-link" data-title="Get All Kittens">Get All Kittens</a>
+                    <a href="#create-a-contact" class="toc-h2 toc-link" data-title="Create a Contact">Create a Contact</a>
                   </li>
                   <li>
-                    <a href="#get-a-specific-kitten" class="toc-h2 toc-link" data-title="Get a Specific Kitten">Get a Specific Kitten</a>
+                    <a href="#update-a-contact" class="toc-h2 toc-link" data-title="Update a Contact">Update a Contact</a>
                   </li>
                   <li>
-                    <a href="#delete-a-specific-kitten" class="toc-h2 toc-link" data-title="Delete a Specific Kitten">Delete a Specific Kitten</a>
+                    <a href="#delete-a-contact" class="toc-h2 toc-link" data-title="Delete a Contact">Delete a Contact</a>
+                  </li>
+                  <li>
+                    <a href="#get-all-contacts" class="toc-h2 toc-link" data-title="Get All Contacts">Get All Contacts</a>
+                  </li>
+                  <li>
+                    <a href="#get-a-specific-contact" class="toc-h2 toc-link" data-title="Get a Specific Contact">Get a Specific Contact</a>
+                  </li>
+                  <li>
+                    <a href="#delete-a-specific-contact" class="toc-h2 toc-link" data-title="Delete a Specific Contact">Delete a Specific Contact</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#message-api" class="toc-h1 toc-link" data-title="Message API">Message API</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#create-a-message" class="toc-h2 toc-link" data-title="Create a Message">Create a Message</a>
+                  </li>
+                  <li>
+                    <a href="#update-a-message" class="toc-h2 toc-link" data-title="Update a message">Update a message</a>
+                  </li>
+                  <li>
+                    <a href="#delete-a-message" class="toc-h2 toc-link" data-title="Delete a message">Delete a message</a>
+                  </li>
+                  <li>
+                    <a href="#get-all-messages" class="toc-h2 toc-link" data-title="Get All messages">Get All messages</a>
+                  </li>
+                  <li>
+                    <a href="#get-a-specific-message" class="toc-h2 toc-link" data-title="Get a Specific message">Get a Specific message</a>
+                  </li>
+                  <li>
+                    <a href="#delete-a-specific-message" class="toc-h2 toc-link" data-title="Delete a Specific message">Delete a Specific message</a>
                   </li>
               </ul>
           </li>
@@ -341,7 +373,7 @@
       <div class="dark-box"></div>
       <div class="content">
         <h1 id='introduction'>Introduction</h1>
-<p>Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.</p>
+<p>Welcome to the GrowthGenius API! You can use our API to access GrowthGenius API endpoints, which can get information on various contacts, accounts, and campaigns.</p>
 
 <p>We have language bindings in Shell, Ruby, Python, and JavaScript! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.</p>
 
@@ -350,107 +382,536 @@
 <blockquote>
 <p>To authorize, use this code:</p>
 </blockquote>
-<div class="highlight"><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
+<div class="highlight"><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'growthgenius'</span>
 
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">kittn</span>
+<span class="n">api</span> <span class="o">=</span> <span class="n">growthgenius</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s2">"YOUR API KEY HERE"</span><span class="p">)</span>
+</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">growthgenius</span>
 
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="p">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
+<span class="n">api</span> <span class="o">=</span> <span class="n">growthgenius</span><span class="p">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">"YOUR API KEY HERE"</span><span class="p">)</span>
 </code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code><span class="c"># With shell, you can just pass the correct header with each request</span>
 curl <span class="s2">"api_endpoint_here"</span> <span class="se">\</span>
-  <span class="nt">-H</span> <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="nx">kittn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">kittn</span><span class="dl">'</span><span class="p">);</span>
+  <span class="nt">-H</span> <span class="s2">"Authorization: YOUR API KEY HERE"</span>
+</code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="nx">growthgenius</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">growthgenius</span><span class="dl">"</span><span class="p">);</span>
 
-<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">kittn</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="dl">'</span><span class="s1">meowmeowmeow</span><span class="dl">'</span><span class="p">);</span>
+<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">growthgenius</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="dl">"</span><span class="s2">YOUR API KEY HERE</span><span class="dl">"</span><span class="p">);</span>
 </code></pre></div>
 <blockquote>
-<p>Make sure to replace <code>meowmeowmeow</code> with your API key.</p>
+<p>Make sure to replace <code>YOUR API KEY HERE</code> with your API key.</p>
 </blockquote>
 
-<p>Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our <a href="http://example.com/developers">developer portal</a>.</p>
+<p>growthgenius uses API keys to allow access to the API. You can register a new growthgenius API key at our <a href="https://api.growthgenius.com/integrations/v1/developers">developer portal</a>.</p>
 
-<p>Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:</p>
+<p>growthgenius expects for the API key to be included in all API requests to the server in a header that looks like the following:</p>
 
-<p><code>Authorization: meowmeowmeow</code></p>
+<p><code>Authorization: YOUR API KEY HERE</code></p>
 
 <aside class="notice">
-You must replace <code>meowmeowmeow</code> with your personal API key.
+You must replace <code>YOUR API KEY HERE</code> with your personal API key.
 </aside>
-<h1 id='kittens'>Kittens</h1><h2 id='get-all-kittens'>Get All Kittens</h2><div class="highlight"><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
+<h1 id='contact-api'>Contact API</h1>
+<p>A Contact is a person your team has explicitly added to your database. It can be from prospected from GrowthGenius, manually added by your team, or created by the API.</p>
+<h2 id='create-a-contact'>Create a Contact</h2><div class="highlight"><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'growthgenius'</span>
 
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="nf">kittens</span><span class="p">.</span><span class="nf">get</span>
-</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">kittn</span>
+<span class="n">api</span> <span class="o">=</span> <span class="n">growthgenius</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s2">"YOUR API KEY HERE"</span><span class="p">)</span>
+<span class="n">api</span><span class="p">.</span><span class="nf">contacts</span><span class="p">.</span><span class="nf">get</span>
+</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> POST <span class="nt">-H</span> <span class="s2">"Content-Type: application/json"</span> <span class="nt">-H</span> <span class="s2">"Cache-Control: no-cache"</span> <span class="nt">-d</span> <span class="s1">'{
+    "api_key": "YOUR API KEY HERE",
+    "first_name": "Elon",
+    "last_name": "Musk",
+    "title": "CEO",
+    "organization_name": "Tesla"
+}'</span> <span class="s2">"https://api.growthgenius.com/integrations/v1/contacts"</span>
+</code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="nx">growthgenius</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">growthgenius</span><span class="dl">"</span><span class="p">);</span>
 
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="p">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="n">kittens</span><span class="p">.</span><span class="n">get</span><span class="p">()</span>
-</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"http://example.com/api/kittens"</span> <span class="se">\</span>
-  <span class="nt">-H</span> <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="nx">kittn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">kittn</span><span class="dl">'</span><span class="p">);</span>
-
-<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">kittn</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="dl">'</span><span class="s1">meowmeowmeow</span><span class="dl">'</span><span class="p">);</span>
-<span class="kd">let</span> <span class="nx">kittens</span> <span class="o">=</span> <span class="nx">api</span><span class="p">.</span><span class="nx">kittens</span><span class="p">.</span><span class="kd">get</span><span class="p">();</span>
+<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">growthgenius</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="dl">"</span><span class="s2">YOUR API KEY HERE</span><span class="dl">"</span><span class="p">);</span>
+<span class="kd">let</span> <span class="nx">contacts</span> <span class="o">=</span> <span class="nx">api</span><span class="p">.</span><span class="nx">contacts</span><span class="p">.</span><span class="kd">get</span><span class="p">();</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
 </blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Fluffums"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"calico"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="w">
-  </span><span class="p">},</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Max"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unknown"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"contact"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"annual_revenue"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"bad_data_reason"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"city"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"company_address"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"company_city"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Melbourne"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"company_country"</span><span class="p">:</span><span class="w"> </span><span class="s2">"New Zealand"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"company_linkedin_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"linkedin.com/company/anz"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"company_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Anz"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"company_name_informal"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"company_state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Victoria"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"contact_account"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">485499</span><span class="p">,</span><span class="w"> </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cold"</span><span class="w"> </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"contact_account_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">485499</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"corporate_phone"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"country"</span><span class="p">:</span><span class="w"> </span><span class="s2">"New Zealand"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-01-19T17:06:25.730-05:00"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"custom1"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"custom2"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"custom3"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"custom4"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"custom5"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"custom6"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"custom7"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"custom8"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"custom9"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"tony.barkley@anz.com"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"email_confidence"</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"email_status"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"employee_count"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"facebook_url"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"first_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Tony"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"first_phone"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"full_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Tony Barkley"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"home_phone"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1102755</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"industry"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Banking"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"keywords"</span><span class="p">:</span><span class="w"> </span><span class="s2">"banking, finance, retail banking, commercial banking, credit risk, credit, financial risk, loans, credit analysis, relationship management, risk management, core banking, portfolio management, financial analysis, business relationship management, internet banking, mobile banking"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"label_names"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"last_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Barkley"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"linkedin_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"linkedin.com/in/tony-barkley-92824584"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"linkedin_username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"tony-barkley-92824584"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"lists"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"mobile_phone"</span><span class="p">:</span><span class="w"> </span><span class="s2">"NaN"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Tony Barkley"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"other_phone"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"prospect_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">236811124</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"seo_description"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"stage"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bay Of Plenty"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Ongoing"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"technologies"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Relationship Associate"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"twitter_url"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"unstructured_data"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-01-19T17:07:20.529-05:00"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"upload_identifier"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"user_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"website"</span><span class="p">:</span><span class="w"> </span><span class="s2">"anz.com"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"work_phone"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
   </span><span class="p">}</span><span class="w">
-</span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p>This endpoint retrieves all kittens.</p>
+<p>GrowthGenius does not run any deduplication during CREATE. If your record contains the same email or name+company as an existing contact, GrowthGenius will create a new contact instead of updating the existing contact.</p>
 <h3 id='http-request'>HTTP Request</h3>
-<p><code>GET http://example.com/api/kittens</code></p>
+<p><code>POST https://api.growthgenius.com/integrations/v1/contacts</code></p>
 <h3 id='query-parameters'>Query Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
-<th>Default</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>first_name</td>
+<td>First Name</td>
+<td>Elon</td>
+</tr>
+<tr>
+<td>last_name</td>
+<td>Last Name</td>
+<td>Musk</td>
+</tr>
+<tr>
+<td>title</td>
+<td>Title</td>
+<td>CEO</td>
+</tr>
+<tr>
+<td>account_id</td>
+<td>ID of the Account (Optional)</td>
+<td>&quot;583f2f7ed9ced98ab5bfXXXX&quot;</td>
+</tr>
+<tr>
+<td>account_name</td>
+<td>Account Name</td>
+<td>Tesla</td>
+</tr>
+<tr>
+<td>email</td>
+<td>Email</td>
+<td>elon@tesla.com</td>
+</tr>
+<tr>
+<td>website_url</td>
+<td>The organization website Apollo can use to enrich data for you. DO NOT pass in personal social media URLs such as &quot;http://www.linkedin.com/profile_url&quot;, or your data will be incorrectly enriched. This argument will be ignored if you pass in a valid email.</td>
+<td>&quot;http://www.tesla.com&quot;</td>
+</tr>
+</tbody></table>
+<h2 id='update-a-contact'>Update a Contact</h2><div class="highlight"><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'growthgenius'</span>
+
+<span class="n">api</span> <span class="o">=</span> <span class="n">growthgenius</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s2">"YOUR API KEY HERE"</span><span class="p">)</span>
+<span class="n">api</span><span class="p">.</span><span class="nf">contacts</span><span class="p">.</span><span class="nf">get</span>
+</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">growthgenius</span>
+
+<span class="n">api</span> <span class="o">=</span> <span class="n">growthgenius</span><span class="p">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">"YOUR API KEY HERE"</span><span class="p">)</span>
+<span class="n">api</span><span class="p">.</span><span class="n">contacts</span><span class="p">.</span><span class="n">get</span><span class="p">()</span>
+</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> POST <span class="nt">-H</span> <span class="s2">"Content-Type: application/json"</span> <span class="nt">-H</span> <span class="s2">"Cache-Control: no-cache"</span> <span class="nt">-d</span> <span class="s1">'{
+    "api_key": "YOUR API KEY HERE",
+    "first_name": "Elon",
+    "last_name": "Musk",
+    "title": "CEO",
+    "organization_name": "Tesla"
+}'</span> <span class="s2">"https://api.growthgenius.com/integrations/v1/contacts/YOUR-CONTACT-ID"</span>
+</code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="nx">growthgenius</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">growthgenius</span><span class="dl">"</span><span class="p">);</span>
+
+<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">growthgenius</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="dl">"</span><span class="s2">YOUR API KEY HERE</span><span class="dl">"</span><span class="p">);</span>
+<span class="kd">let</span> <span class="nx">contacts</span> <span class="o">=</span> <span class="nx">api</span><span class="p">.</span><span class="nx">contacts</span><span class="p">.</span><span class="kd">get</span><span class="p">();</span>
+</code></pre></div>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"contact"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"d54c54ad-40be-4305-8a34-0ab44710b90d"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"full_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Elon Musk"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"fist_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Elon"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"last_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Musk"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"elon@tesla.com"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"//"</span><span class="p">:</span><span class="w"> </span><span class="s2">"..."</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>This endpoint updates a contact.</p>
+<h3 id='http-request-2'>HTTP Request</h3>
+<p><code>PATCH https://api.growthgenius.com/integrations/v1/contacts/:id</code></p>
+<h3 id='query-parameters-2'>Query Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>first_name</td>
+<td>First Name</td>
+<td>Elon</td>
+</tr>
+<tr>
+<td>last_name</td>
+<td>Last Name</td>
+<td>Musk</td>
+</tr>
+<tr>
+<td>title</td>
+<td>Title</td>
+<td>CEO</td>
+</tr>
+<tr>
+<td>account_id</td>
+<td>ID of the Account (Optional)</td>
+<td>&quot;583f2f7ed9ced98ab5bfXXXX&quot;</td>
+</tr>
+<tr>
+<td>account_name</td>
+<td>Account Name</td>
+<td>Tesla</td>
+</tr>
+<tr>
+<td>email</td>
+<td>Email</td>
+<td>elon@tesla.com</td>
+</tr>
+<tr>
+<td>website_url</td>
+<td>The organization website Apollo can use to enrich data for you. DO NOT pass in personal social media URLs such as &quot;http://www.linkedin.com/profile_url&quot;, or your data will be incorrectly enriched. This argument will be ignored if you pass in a valid email.</td>
+<td>&quot;http://www.tesla.com&quot;</td>
+</tr>
+</tbody></table>
+<h2 id='delete-a-contact'>Delete a Contact</h2><div class="highlight"><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'growthgenius'</span>
+
+<span class="n">api</span> <span class="o">=</span> <span class="n">growthgenius</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s2">"YOUR API KEY HERE"</span><span class="p">)</span>
+<span class="n">api</span><span class="p">.</span><span class="nf">contacts</span><span class="p">.</span><span class="nf">get</span>
+</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">growthgenius</span>
+
+<span class="n">api</span> <span class="o">=</span> <span class="n">growthgenius</span><span class="p">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">"YOUR API KEY HERE"</span><span class="p">)</span>
+<span class="n">api</span><span class="p">.</span><span class="n">contacts</span><span class="p">.</span><span class="n">get</span><span class="p">()</span>
+</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.growthgenius.com/integrations/v1/contacts"</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"Authorization: YOUR API KEY HERE"</span>
+</code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="nx">growthgenius</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">growthgenius</span><span class="dl">"</span><span class="p">);</span>
+
+<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">growthgenius</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="dl">"</span><span class="s2">YOUR API KEY HERE</span><span class="dl">"</span><span class="p">);</span>
+<span class="kd">let</span> <span class="nx">contacts</span> <span class="o">=</span> <span class="nx">api</span><span class="p">.</span><span class="nx">contacts</span><span class="p">.</span><span class="kd">get</span><span class="p">();</span>
+</code></pre></div>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"contact"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"d54c54ad-40be-4305-8a34-0ab44710b90d"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"full_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Elon Musk"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"fist_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Elon"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"last_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Musk"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"elon@tesla.com"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"//"</span><span class="p">:</span><span class="w"> </span><span class="s2">"..."</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>This endpoint updates a contact.</p>
+<h3 id='http-request-3'>HTTP Request</h3>
+<p><code>DELETE https://api.growthgenius.com/integrations/v1/contacts/:id</code></p>
+<h3 id='query-parameters-3'>Query Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>first_name</td>
+<td>First Name</td>
+<td>Elon</td>
+</tr>
+<tr>
+<td>last_name</td>
+<td>Last Name</td>
+<td>Musk</td>
+</tr>
+<tr>
+<td>title</td>
+<td>Title</td>
+<td>CEO</td>
+</tr>
+<tr>
+<td>account_id</td>
+<td>ID of the Account (Optional)</td>
+<td>&quot;583f2f7ed9ced98ab5bfXXXX&quot;</td>
+</tr>
+<tr>
+<td>account_name</td>
+<td>Account Name</td>
+<td>Tesla</td>
+</tr>
+<tr>
+<td>email</td>
+<td>Email</td>
+<td>elon@tesla.com</td>
+</tr>
+<tr>
+<td>website_url</td>
+<td>The organization website Apollo can use to enrich data for you. DO NOT pass in personal social media URLs such as &quot;http://www.linkedin.com/profile_url&quot;, or your data will be incorrectly enriched. This argument will be ignored if you pass in a valid email.</td>
+<td>&quot;http://www.tesla.com&quot;</td>
+</tr>
+</tbody></table>
+<h2 id='get-all-contacts'>Get All Contacts</h2><div class="highlight"><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'growthgenius'</span>
+
+<span class="n">api</span> <span class="o">=</span> <span class="n">growthgenius</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s2">"YOUR API KEY HERE"</span><span class="p">)</span>
+<span class="n">api</span><span class="p">.</span><span class="nf">contacts</span><span class="p">.</span><span class="nf">get</span>
+</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">growthgenius</span>
+
+<span class="n">api</span> <span class="o">=</span> <span class="n">growthgenius</span><span class="p">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">"YOUR API KEY HERE"</span><span class="p">)</span>
+<span class="n">api</span><span class="p">.</span><span class="n">contacts</span><span class="p">.</span><span class="n">get</span><span class="p">()</span>
+</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> POST <span class="nt">-H</span> <span class="s2">"Content-Type: application/json"</span> <span class="nt">-H</span> <span class="s2">"Cache-Control: no-cache"</span> <span class="nt">-d</span> <span class="s1">'{
+    "api_key": "YOUR API KEY HERE",
+    "q_keywords": "Elon Musk, CEO, Tesla",
+    "sort_by_field": "contact_last_activity_date",
+    "sort_ascending": false
+}'</span> <span class="s2">"https://api.growthgenius.com/integrations/v1/contacts/search"</span>
+</code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="nx">growthgenius</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">growthgenius</span><span class="dl">"</span><span class="p">);</span>
+
+<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">growthgenius</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="dl">"</span><span class="s2">YOUR API KEY HERE</span><span class="dl">"</span><span class="p">);</span>
+<span class="kd">let</span> <span class="nx">contacts</span> <span class="o">=</span> <span class="nx">api</span><span class="p">.</span><span class="nx">contacts</span><span class="p">.</span><span class="kd">get</span><span class="p">();</span>
+</code></pre></div>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"contacts"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5da8ceXXXXXXXXXXXXXXXXXX"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"first_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Tim"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"last_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Zheng"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Tim Zheng"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"linkedin_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://www.linkedin.com/in/tim-zheng-677ba010"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Founder &amp; CEO"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"contact_stage_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5c48fbXXXXXXXXXXXXXXXXXX"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"owner_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5c1004XXXXXXXXXXXXXXXXXX"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"person_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5f2b88XXXXXXXXXXXXXXXXXX"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"email_needs_tickling"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"organization_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Apollo"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"source"</span><span class="p">:</span><span class="w"> </span><span class="s2">"search"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"original_source"</span><span class="p">:</span><span class="w"> </span><span class="s2">"email_import"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"organization_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5e66b6XXXXXXXXXXXXXXXXXX"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"headline"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Founder &amp; CEO at Apollo"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"photo_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://some-url.fyvrk"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"present_raw_address"</span><span class="p">:</span><span class="w"> </span><span class="s2">"San Francisco, California, United States"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"linkedin_uid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"38777275"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"extrapolated_email_confidence"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"salesforce_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0031UXXXXXXXXXXXXXX"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"salesforce_lead_id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"salesforce_contact_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0031UXXXXXXXXXXXXXXX"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"salesforce_account_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0011UXXXXXXXXXXXXXXX"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"salesforce_owner_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0051UXXXXXXXXXXXXXXX"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-10-17T20:25:07.594Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"lead_request_id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"test_predictive_score"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"emailer_campaign_ids"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+      </span><span class="nl">"email_manually_changed"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"direct_dial_status"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"direct_dial_enrichment_failed_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"email_status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"verified"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"account_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5f1fadXXXXXXXXXXXXXXXXXX"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"last_activity_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-06-26T16:30:35.000+00:00"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"hubspot_vid"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"hubspot_company_id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"sanitized_phone"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"merged_crm_ids"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+      </span><span class="nl">"typed_custom_fields"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"5d856eXXXXXXXXXXXXXXXXXX"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Tim Zheng"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nl">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-07-28T04:44:51.448Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"queued_for_crm_push"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"starred_by_user_ids"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+      </span><span class="nl">"suggested_from_rule_engine_config_id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"label_ids"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+      </span><span class="nl">"has_pending_email_arcgate_request"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"has_email_arcgate_request"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"existence_level"</span><span class="p">:</span><span class="w"> </span><span class="s2">"full"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"random@somedomain.com"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"salesforce_record_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://na85.salesforce.com/0031UXXXXXXXXXXXXXXXXXX"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"contact_campaign_statuses"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+      </span><span class="nl">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"California"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"city"</span><span class="p">:</span><span class="w"> </span><span class="s2">"San Francisco"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"country"</span><span class="p">:</span><span class="w"> </span><span class="s2">"United States"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"account"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5f1fadXXXXXXXXXXXXXXXXXX"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Apollo"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"website_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://www.apollo.io"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"blog_url"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"angellist_url"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"linkedin_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://www.linkedin.com/company/apolloio"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"twitter_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://twitter.com/MeetApollo/"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"facebook_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.facebook.com/MeetApollo/"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"languages"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+        </span><span class="nl">"alexa_ranking"</span><span class="p">:</span><span class="w"> </span><span class="mi">77520</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"phone"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"linkedin_uid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"18511550"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"publicly_traded_symbol"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"publicly_traded_exchange"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"logo_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://apollo-server.com/uploads/pictures/5f0265XXXXXXXXXXXXXXXXXX/picture"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"crunchbase_url"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"primary_domain"</span><span class="p">:</span><span class="w"> </span><span class="s2">"apollo.io"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"starred_by_user_ids"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+        </span><span class="nl">"persona_counts"</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span><span class="w">
+        </span><span class="nl">"domain"</span><span class="p">:</span><span class="w"> </span><span class="s2">"apollo.io"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"team_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5c1004XXXXXXXXXXXXXXXXXX"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"typed_custom_fields"</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span><span class="w">
+        </span><span class="nl">"organization_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5e66b6XXXXXXXXXXXXXXXXXX"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"account_stage_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5c1004XXXXXXXXXXXXXXXXXX"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"source"</span><span class="p">:</span><span class="w"> </span><span class="s2">"salesforce"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"original_source"</span><span class="p">:</span><span class="w"> </span><span class="s2">"salesforce"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"owner_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5c1004XXXXXXXXXXXXXXXXXX"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-07-28T04:44:13.821Z"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"phone_status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"no_status"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"test_predictive_score"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"hubspot_id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"salesforce_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0011UXXXXXXXXXX"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"salesforce_owner_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0051UXXXXXXXXXX"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"parent_account_id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"account_playbook_statuses"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+        </span><span class="nl">"existence_level"</span><span class="p">:</span><span class="w"> </span><span class="s2">"full"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"label_ids"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+        </span><span class="nl">"modality"</span><span class="p">:</span><span class="w"> </span><span class="s2">"account"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"salesforce_record_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://na85.salesforce.com/0011UXXXXXXXXXXX"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nl">"organization"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5e66b6XXXXXXXXXXXXXXXXXX"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Apollo"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"website_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://www.apollo.io"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"blog_url"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"angellist_url"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"linkedin_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://www.linkedin.com/company/apolloio"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"twitter_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://twitter.com/MeetApollo/"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"facebook_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.facebook.com/MeetApollo/"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"languages"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+        </span><span class="nl">"alexa_ranking"</span><span class="p">:</span><span class="w"> </span><span class="mi">77520</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"phone"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"linkedin_uid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"18511550"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"publicly_traded_symbol"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"publicly_traded_exchange"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"logo_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://apollo-server.com/uploads/pictures/5f0265XXXXXXXXXXXXXXXXXX/picture"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"crunchbase_url"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"primary_domain"</span><span class="p">:</span><span class="w"> </span><span class="s2">"apollo.io"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"starred_by_user_ids"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+        </span><span class="nl">"persona_counts"</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nl">"phone_numbers"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+      </span><span class="nl">"account_phone_note"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"contact_job_change_event"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"breadcrumbs"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Contains Keywords"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"signal_field_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"q_keywords"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Tim Zheng, CEO, Apollo"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"display_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Tim Zheng, CEO, Apollo"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"partial_results_only"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"disable_eu_prospecting"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"partial_results_limit"</span><span class="p">:</span><span class="w"> </span><span class="mi">10000</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"pagination"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"page"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"per_page"</span><span class="p">:</span><span class="w"> </span><span class="mi">25</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"total_entries"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"total_pages"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"num_fetch_result"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>This endpoint retrieves all contacts.</p>
+<h3 id='http-request-4'>HTTP Request</h3>
+<p><code>GET https://api.growthgenius.com/integrations/v1/contacts</code></p>
+<h3 id='query-parameters-4'>Query Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
-<td>include_cats</td>
-<td>false</td>
-<td>If set to true, the result will also include cats.</td>
+<td>q_keywords</td>
+<td>The contact&#39;s name, title, company, or email</td>
 </tr>
 <tr>
-<td>available</td>
-<td>true</td>
-<td>If set to false, the result will include kittens that have already been adopted.</td>
+<td>contact_stage_ids</td>
+<td>An array of stage ids the contact must belong to. Refer to /contact_stages to get a list of possible stage ids.</td>
+</tr>
+<tr>
+<td>sort_by_field</td>
+<td>Possible values: &quot;contact_last_activity_date&quot;, &quot;contact_email_last_opened_at&quot;, &quot;contact_email_last_clicked_at&quot;, &quot;contact_created_at&quot;, or &quot;contact_updated_at&quot;</td>
+</tr>
+<tr>
+<td>sort_ascending</td>
+<td>Possible values: true or false</td>
+</tr>
+<tr>
+<td>page</td>
+<td>which page to return. Defaults to 1</td>
+</tr>
+<tr>
+<td>per_page</td>
+<td>how many contacts to return per page. Max = 200</td>
 </tr>
 </tbody></table>
+<h2 id='get-a-specific-contact'>Get a Specific Contact</h2><div class="highlight"><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'growthgenius'</span>
 
-<aside class="success">
-Remember — a happy kitten is an authenticated kitten!
-</aside>
-<h2 id='get-a-specific-kitten'>Get a Specific Kitten</h2><div class="highlight"><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
+<span class="n">api</span> <span class="o">=</span> <span class="n">growthgenius</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s2">"YOUR API KEY HERE"</span><span class="p">)</span>
+<span class="n">api</span><span class="p">.</span><span class="nf">contacts</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">growthgenius</span>
 
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="nf">kittens</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">kittn</span>
+<span class="n">api</span> <span class="o">=</span> <span class="n">growthgenius</span><span class="p">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">"YOUR API KEY HERE"</span><span class="p">)</span>
+<span class="n">api</span><span class="p">.</span><span class="n">contacts</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.growthgenius.com/integrations/v1/contacts/2"</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"Authorization: YOUR API KEY HERE"</span>
+</code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="nx">growthgenius</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">growthgenius</span><span class="dl">"</span><span class="p">);</span>
 
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="p">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="n">kittens</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"http://example.com/api/kittens/2"</span> <span class="se">\</span>
-  <span class="nt">-H</span> <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="nx">kittn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">kittn</span><span class="dl">'</span><span class="p">);</span>
-
-<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">kittn</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="dl">'</span><span class="s1">meowmeowmeow</span><span class="dl">'</span><span class="p">);</span>
-<span class="kd">let</span> <span class="nx">max</span> <span class="o">=</span> <span class="nx">api</span><span class="p">.</span><span class="nx">kittens</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">growthgenius</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="dl">"</span><span class="s2">YOUR API KEY HERE</span><span class="dl">"</span><span class="p">);</span>
+<span class="kd">let</span> <span class="nx">max</span> <span class="o">=</span> <span class="nx">api</span><span class="p">.</span><span class="nx">contacts</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -463,11 +924,9 @@ Remember — a happy kitten is an authenticated kitten!
   </span><span class="nl">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p>This endpoint retrieves a specific kitten.</p>
-
-<aside class="warning">Inside HTML code blocks like this one, you can't use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
-<h3 id='http-request-2'>HTTP Request</h3>
-<p><code>GET http://example.com/kittens/&lt;ID&gt;</code></p>
+<p>This endpoint retrieves a specific contact.</p>
+<h3 id='http-request-5'>HTTP Request</h3>
+<p><code>GET https://api.growthgenius.com/integrations/v1/contacts/&lt;ID&gt;</code></p>
 <h3 id='url-parameters'>URL Parameters</h3>
 <table><thead>
 <tr>
@@ -477,36 +936,36 @@ Remember — a happy kitten is an authenticated kitten!
 </thead><tbody>
 <tr>
 <td>ID</td>
-<td>The ID of the kitten to retrieve</td>
+<td>The ID of the contact to retrieve</td>
 </tr>
 </tbody></table>
-<h2 id='delete-a-specific-kitten'>Delete a Specific Kitten</h2><div class="highlight"><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
+<h2 id='delete-a-specific-contact'>Delete a Specific Contact</h2><div class="highlight"><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'growthgenius'</span>
 
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="nf">kittens</span><span class="p">.</span><span class="nf">delete</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">kittn</span>
+<span class="n">api</span> <span class="o">=</span> <span class="n">growthgenius</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s2">"YOUR API KEY HERE"</span><span class="p">)</span>
+<span class="n">api</span><span class="p">.</span><span class="nf">contacts</span><span class="p">.</span><span class="nf">delete</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">growthgenius</span>
 
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="p">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="n">kittens</span><span class="p">.</span><span class="n">delete</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"http://example.com/api/kittens/2"</span> <span class="se">\</span>
+<span class="n">api</span> <span class="o">=</span> <span class="n">growthgenius</span><span class="p">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">"YOUR API KEY HERE"</span><span class="p">)</span>
+<span class="n">api</span><span class="p">.</span><span class="n">contacts</span><span class="p">.</span><span class="n">delete</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.growthgenius.com/integrations/v1/contacts/2"</span> <span class="se">\</span>
   <span class="nt">-X</span> DELETE <span class="se">\</span>
-  <span class="nt">-H</span> <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="nx">kittn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">kittn</span><span class="dl">'</span><span class="p">);</span>
+  <span class="nt">-H</span> <span class="s2">"Authorization: YOUR API KEY HERE"</span>
+</code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="nx">growthgenius</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">growthgenius</span><span class="dl">"</span><span class="p">);</span>
 
-<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">kittn</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="dl">'</span><span class="s1">meowmeowmeow</span><span class="dl">'</span><span class="p">);</span>
-<span class="kd">let</span> <span class="nx">max</span> <span class="o">=</span> <span class="nx">api</span><span class="p">.</span><span class="nx">kittens</span><span class="p">.</span><span class="k">delete</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">growthgenius</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="dl">"</span><span class="s2">YOUR API KEY HERE</span><span class="dl">"</span><span class="p">);</span>
+<span class="kd">let</span> <span class="nx">max</span> <span class="o">=</span> <span class="nx">api</span><span class="p">.</span><span class="nx">contacts</span><span class="p">.</span><span class="k">delete</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"deleted"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">":("</span><span class="w">
+  </span><span class="nl">"deleted"</span><span class="p">:</span><span class="w"> </span><span class="s2">":("</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p>This endpoint deletes a specific kitten.</p>
-<h3 id='http-request-3'>HTTP Request</h3>
-<p><code>DELETE http://example.com/kittens/&lt;ID&gt;</code></p>
+<p>This endpoint deletes a specific contact.</p>
+<h3 id='http-request-6'>HTTP Request</h3>
+<p><code>DELETE https://api.growthgenius.com/integrations/v1/contacts/&lt;ID&gt;</code></p>
 <h3 id='url-parameters-2'>URL Parameters</h3>
 <table><thead>
 <tr>
@@ -516,7 +975,439 @@ Remember — a happy kitten is an authenticated kitten!
 </thead><tbody>
 <tr>
 <td>ID</td>
-<td>The ID of the kitten to delete</td>
+<td>The ID of the contact to delete</td>
+</tr>
+</tbody></table>
+<h1 id='message-api'>Message API</h1>
+<p>A Message is a message your team has created in a campaign.</p>
+<h2 id='create-a-message'>Create a Message</h2><div class="highlight"><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'growthgenius'</span>
+
+<span class="n">api</span> <span class="o">=</span> <span class="n">growthgenius</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s2">"YOUR API KEY HERE"</span><span class="p">)</span>
+<span class="n">api</span><span class="p">.</span><span class="nf">messages</span><span class="p">.</span><span class="nf">get</span>
+</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> POST <span class="nt">-H</span> <span class="s2">"Content-Type: application/json"</span> <span class="nt">-H</span> <span class="s2">"Cache-Control: no-cache"</span> <span class="nt">-d</span> <span class="s1">'{
+    "api_key": "YOUR API KEY HERE"
+}'</span> <span class="s2">"https://api.growthgenius.com/integrations/v1/messages"</span>
+</code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="nx">growthgenius</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">growthgenius</span><span class="dl">"</span><span class="p">);</span>
+
+<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">growthgenius</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="dl">"</span><span class="s2">YOUR API KEY HERE</span><span class="dl">"</span><span class="p">);</span>
+<span class="kd">let</span> <span class="nx">messages</span> <span class="o">=</span> <span class="nx">api</span><span class="p">.</span><span class="nx">messages</span><span class="p">.</span><span class="kd">get</span><span class="p">();</span>
+</code></pre></div>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Hello world!"</span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>GrowthGenius does not run any deduplication during CREATE. If your record contains the same email or name+company as an existing message, GrowthGenius will create a new message instead of updating the existing message.</p>
+<h3 id='http-request-7'>HTTP Request</h3>
+<p><code>POST https://api.growthgenius.com/integrations/v1/messages</code></p>
+<h3 id='query-parameters-5'>Query Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>contact_id</td>
+<td>Contact ID</td>
+<td>123</td>
+</tr>
+<tr>
+<td>user_id</td>
+<td>User ID</td>
+<td>256</td>
+</tr>
+</tbody></table>
+<h2 id='update-a-message'>Update a message</h2><div class="highlight"><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'growthgenius'</span>
+
+<span class="n">api</span> <span class="o">=</span> <span class="n">growthgenius</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s2">"YOUR API KEY HERE"</span><span class="p">)</span>
+<span class="n">api</span><span class="p">.</span><span class="nf">messages</span><span class="p">.</span><span class="nf">get</span>
+</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">growthgenius</span>
+
+<span class="n">api</span> <span class="o">=</span> <span class="n">growthgenius</span><span class="p">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">"YOUR API KEY HERE"</span><span class="p">)</span>
+<span class="n">api</span><span class="p">.</span><span class="n">messages</span><span class="p">.</span><span class="n">get</span><span class="p">()</span>
+</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> POST <span class="nt">-H</span> <span class="s2">"Content-Type: application/json"</span> <span class="nt">-H</span> <span class="s2">"Cache-Control: no-cache"</span> <span class="nt">-d</span> <span class="s1">'{
+    "api_key": "YOUR API KEY HERE",
+    "first_name": "Elon",
+    "last_name": "Musk",
+    "title": "CEO",
+    "organization_name": "Tesla"
+}'</span> <span class="s2">"https://api.growthgenius.com/integrations/v1/messages/YOUR-message-ID"</span>
+</code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="nx">growthgenius</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">growthgenius</span><span class="dl">"</span><span class="p">);</span>
+
+<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">growthgenius</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="dl">"</span><span class="s2">YOUR API KEY HERE</span><span class="dl">"</span><span class="p">);</span>
+<span class="kd">let</span> <span class="nx">messages</span> <span class="o">=</span> <span class="nx">api</span><span class="p">.</span><span class="nx">messages</span><span class="p">.</span><span class="kd">get</span><span class="p">();</span>
+</code></pre></div>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"d54c54ad-40be-4305-8a34-0ab44710b90d"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"full_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Elon Musk"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"fist_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Elon"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"last_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Musk"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"elon@tesla.com"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"//"</span><span class="p">:</span><span class="w"> </span><span class="s2">"..."</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>This endpoint updates a message.</p>
+<h3 id='http-request-8'>HTTP Request</h3>
+<p><code>PATCH https://api.growthgenius.com/integrations/v1/messages/:id</code></p>
+<h3 id='query-parameters-6'>Query Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>contact_id</td>
+<td>Contact ID</td>
+<td>123</td>
+</tr>
+<tr>
+<td>user_id</td>
+<td>User ID</td>
+<td>256</td>
+</tr>
+</tbody></table>
+<h2 id='delete-a-message'>Delete a message</h2><div class="highlight"><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'growthgenius'</span>
+
+<span class="n">api</span> <span class="o">=</span> <span class="n">growthgenius</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s2">"YOUR API KEY HERE"</span><span class="p">)</span>
+<span class="n">api</span><span class="p">.</span><span class="nf">messages</span><span class="p">.</span><span class="nf">get</span>
+</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">growthgenius</span>
+
+<span class="n">api</span> <span class="o">=</span> <span class="n">growthgenius</span><span class="p">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">"YOUR API KEY HERE"</span><span class="p">)</span>
+<span class="n">api</span><span class="p">.</span><span class="n">messages</span><span class="p">.</span><span class="n">get</span><span class="p">()</span>
+</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.growthgenius.com/integrations/v1/messages?contact_id=123&amp;user_id=456"</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"Authorization: YOUR API KEY HERE"</span>
+</code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="nx">growthgenius</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">growthgenius</span><span class="dl">"</span><span class="p">);</span>
+
+<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">growthgenius</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="dl">"</span><span class="s2">YOUR API KEY HERE</span><span class="dl">"</span><span class="p">);</span>
+<span class="kd">let</span> <span class="nx">messages</span> <span class="o">=</span> <span class="nx">api</span><span class="p">.</span><span class="nx">messages</span><span class="p">.</span><span class="kd">get</span><span class="p">();</span>
+</code></pre></div>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"d54c54ad-40be-4305-8a34-0ab44710b90d"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"full_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Elon Musk"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"fist_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Elon"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"last_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Musk"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"elon@tesla.com"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"//"</span><span class="p">:</span><span class="w"> </span><span class="s2">"..."</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>This endpoint updates a message.</p>
+<h3 id='http-request-9'>HTTP Request</h3>
+<p><code>DELETE https://api.growthgenius.com/integrations/v1/messages/:id</code></p>
+<h3 id='query-parameters-7'>Query Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>contact_id</td>
+<td>Contact ID</td>
+<td>123</td>
+</tr>
+<tr>
+<td>user_id</td>
+<td>User ID</td>
+<td>256</td>
+</tr>
+</tbody></table>
+<h2 id='get-all-messages'>Get All messages</h2><div class="highlight"><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'growthgenius'</span>
+
+<span class="n">api</span> <span class="o">=</span> <span class="n">growthgenius</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s2">"YOUR API KEY HERE"</span><span class="p">)</span>
+<span class="n">api</span><span class="p">.</span><span class="nf">messages</span><span class="p">.</span><span class="nf">get</span>
+</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">growthgenius</span>
+
+<span class="n">api</span> <span class="o">=</span> <span class="n">growthgenius</span><span class="p">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">"YOUR API KEY HERE"</span><span class="p">)</span>
+<span class="n">api</span><span class="p">.</span><span class="n">messages</span><span class="p">.</span><span class="n">get</span><span class="p">()</span>
+</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> POST <span class="nt">-H</span> <span class="s2">"Content-Type: application/json"</span> <span class="nt">-H</span> <span class="s2">"Cache-Control: no-cache"</span> <span class="nt">-d</span> <span class="s1">'{
+    "api_key": "YOUR API KEY HERE",
+    "q_keywords": "Elon Musk, CEO, Tesla",
+    "sort_by_field": "message_last_activity_date",
+    "sort_ascending": false
+}'</span> <span class="s2">"https://api.growthgenius.com/integrations/v1/messages/search"</span>
+</code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="nx">growthgenius</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">growthgenius</span><span class="dl">"</span><span class="p">);</span>
+
+<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">growthgenius</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="dl">"</span><span class="s2">YOUR API KEY HERE</span><span class="dl">"</span><span class="p">);</span>
+<span class="kd">let</span> <span class="nx">messages</span> <span class="o">=</span> <span class="nx">api</span><span class="p">.</span><span class="nx">messages</span><span class="p">.</span><span class="kd">get</span><span class="p">();</span>
+</code></pre></div>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"messages"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5da8ceXXXXXXXXXXXXXXXXXX"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"first_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Tim"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"last_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Zheng"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Tim Zheng"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"linkedin_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://www.linkedin.com/in/tim-zheng-677ba010"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Founder &amp; CEO"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"message_stage_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5c48fbXXXXXXXXXXXXXXXXXX"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"owner_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5c1004XXXXXXXXXXXXXXXXXX"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"person_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5f2b88XXXXXXXXXXXXXXXXXX"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"email_needs_tickling"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"organization_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Apollo"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"source"</span><span class="p">:</span><span class="w"> </span><span class="s2">"search"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"original_source"</span><span class="p">:</span><span class="w"> </span><span class="s2">"email_import"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"organization_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5e66b6XXXXXXXXXXXXXXXXXX"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"headline"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Founder &amp; CEO at Apollo"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"photo_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://some-url.fyvrk"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"present_raw_address"</span><span class="p">:</span><span class="w"> </span><span class="s2">"San Francisco, California, United States"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"linkedin_uid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"38777275"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"extrapolated_email_confidence"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"salesforce_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0031UXXXXXXXXXXXXXX"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"salesforce_lead_id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"salesforce_message_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0031UXXXXXXXXXXXXXXX"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"salesforce_account_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0011UXXXXXXXXXXXXXXX"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"salesforce_owner_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0051UXXXXXXXXXXXXXXX"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-10-17T20:25:07.594Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"lead_request_id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"test_predictive_score"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"emailer_campaign_ids"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+      </span><span class="nl">"email_manually_changed"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"direct_dial_status"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"direct_dial_enrichment_failed_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"email_status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"verified"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"account_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5f1fadXXXXXXXXXXXXXXXXXX"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"last_activity_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-06-26T16:30:35.000+00:00"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"hubspot_vid"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"hubspot_company_id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"sanitized_phone"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"merged_crm_ids"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+      </span><span class="nl">"typed_custom_fields"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"5d856eXXXXXXXXXXXXXXXXXX"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Tim Zheng"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nl">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-07-28T04:44:51.448Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"queued_for_crm_push"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"starred_by_user_ids"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+      </span><span class="nl">"suggested_from_rule_engine_config_id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"label_ids"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+      </span><span class="nl">"has_pending_email_arcgate_request"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"has_email_arcgate_request"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"existence_level"</span><span class="p">:</span><span class="w"> </span><span class="s2">"full"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"random@somedomain.com"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"salesforce_record_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://na85.salesforce.com/0031UXXXXXXXXXXXXXXXXXX"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"message_campaign_statuses"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+      </span><span class="nl">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"California"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"city"</span><span class="p">:</span><span class="w"> </span><span class="s2">"San Francisco"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"country"</span><span class="p">:</span><span class="w"> </span><span class="s2">"United States"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"account"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5f1fadXXXXXXXXXXXXXXXXXX"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Apollo"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"website_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://www.apollo.io"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"blog_url"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"angellist_url"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"linkedin_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://www.linkedin.com/company/apolloio"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"twitter_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://twitter.com/MeetApollo/"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"facebook_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.facebook.com/MeetApollo/"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"languages"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+        </span><span class="nl">"alexa_ranking"</span><span class="p">:</span><span class="w"> </span><span class="mi">77520</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"phone"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"linkedin_uid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"18511550"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"publicly_traded_symbol"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"publicly_traded_exchange"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"logo_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://apollo-server.com/uploads/pictures/5f0265XXXXXXXXXXXXXXXXXX/picture"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"crunchbase_url"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"primary_domain"</span><span class="p">:</span><span class="w"> </span><span class="s2">"apollo.io"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"starred_by_user_ids"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+        </span><span class="nl">"persona_counts"</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span><span class="w">
+        </span><span class="nl">"domain"</span><span class="p">:</span><span class="w"> </span><span class="s2">"apollo.io"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"team_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5c1004XXXXXXXXXXXXXXXXXX"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"typed_custom_fields"</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span><span class="w">
+        </span><span class="nl">"organization_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5e66b6XXXXXXXXXXXXXXXXXX"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"account_stage_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5c1004XXXXXXXXXXXXXXXXXX"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"source"</span><span class="p">:</span><span class="w"> </span><span class="s2">"salesforce"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"original_source"</span><span class="p">:</span><span class="w"> </span><span class="s2">"salesforce"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"owner_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5c1004XXXXXXXXXXXXXXXXXX"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-07-28T04:44:13.821Z"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"phone_status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"no_status"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"test_predictive_score"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"hubspot_id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"salesforce_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0011UXXXXXXXXXX"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"salesforce_owner_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0051UXXXXXXXXXX"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"parent_account_id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"account_playbook_statuses"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+        </span><span class="nl">"existence_level"</span><span class="p">:</span><span class="w"> </span><span class="s2">"full"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"label_ids"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+        </span><span class="nl">"modality"</span><span class="p">:</span><span class="w"> </span><span class="s2">"account"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"salesforce_record_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://na85.salesforce.com/0011UXXXXXXXXXXX"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nl">"organization"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5e66b6XXXXXXXXXXXXXXXXXX"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Apollo"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"website_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://www.apollo.io"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"blog_url"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"angellist_url"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"linkedin_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://www.linkedin.com/company/apolloio"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"twitter_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://twitter.com/MeetApollo/"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"facebook_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.facebook.com/MeetApollo/"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"languages"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+        </span><span class="nl">"alexa_ranking"</span><span class="p">:</span><span class="w"> </span><span class="mi">77520</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"phone"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"linkedin_uid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"18511550"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"publicly_traded_symbol"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"publicly_traded_exchange"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"logo_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://apollo-server.com/uploads/pictures/5f0265XXXXXXXXXXXXXXXXXX/picture"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"crunchbase_url"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"primary_domain"</span><span class="p">:</span><span class="w"> </span><span class="s2">"apollo.io"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"starred_by_user_ids"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+        </span><span class="nl">"persona_counts"</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nl">"phone_numbers"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+      </span><span class="nl">"account_phone_note"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"message_job_change_event"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"breadcrumbs"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Contains Keywords"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"signal_field_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"q_keywords"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Tim Zheng, CEO, Apollo"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"display_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Tim Zheng, CEO, Apollo"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"partial_results_only"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"disable_eu_prospecting"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"partial_results_limit"</span><span class="p">:</span><span class="w"> </span><span class="mi">10000</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"pagination"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"page"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"per_page"</span><span class="p">:</span><span class="w"> </span><span class="mi">25</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"total_entries"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"total_pages"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"num_fetch_result"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>This endpoint retrieves all messages.</p>
+<h3 id='http-request-10'>HTTP Request</h3>
+<p><code>GET https://api.growthgenius.com/integrations/v1/messages</code></p>
+<h3 id='query-parameters-8'>Query Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>contact_id</td>
+<td>Contact ID</td>
+</tr>
+<tr>
+<td>user_id</td>
+<td>User ID</td>
+</tr>
+<tr>
+<td>sort_by_field</td>
+<td>Possible values: &quot;message_last_activity_date&quot;, &quot;message_email_last_opened_at&quot;, &quot;message_email_last_clicked_at&quot;, &quot;message_created_at&quot;, or &quot;message_updated_at&quot;</td>
+</tr>
+<tr>
+<td>sort_ascending</td>
+<td>Possible values: true or false</td>
+</tr>
+<tr>
+<td>page</td>
+<td>which page to return. Defaults to 1</td>
+</tr>
+<tr>
+<td>per_page</td>
+<td>how many messages to return per page. Max = 200</td>
+</tr>
+</tbody></table>
+<h2 id='get-a-specific-message'>Get a Specific message</h2><div class="highlight"><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'growthgenius'</span>
+
+<span class="n">api</span> <span class="o">=</span> <span class="n">growthgenius</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s2">"YOUR API KEY HERE"</span><span class="p">)</span>
+<span class="n">api</span><span class="p">.</span><span class="nf">messages</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">growthgenius</span>
+
+<span class="n">api</span> <span class="o">=</span> <span class="n">growthgenius</span><span class="p">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">"YOUR API KEY HERE"</span><span class="p">)</span>
+<span class="n">api</span><span class="p">.</span><span class="n">messages</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.growthgenius.com/integrations/v1/messages/2"</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"Authorization: YOUR API KEY HERE"</span>
+</code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="nx">growthgenius</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">growthgenius</span><span class="dl">"</span><span class="p">);</span>
+
+<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">growthgenius</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="dl">"</span><span class="s2">YOUR API KEY HERE</span><span class="dl">"</span><span class="p">);</span>
+<span class="kd">let</span> <span class="nx">max</span> <span class="o">=</span> <span class="nx">api</span><span class="p">.</span><span class="nx">messages</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+</code></pre></div>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Max"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unknown"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>This endpoint retrieves a specific message.</p>
+<h3 id='http-request-11'>HTTP Request</h3>
+<p><code>GET https://api.growthgenius.com/integrations/v1/messages/&lt;ID&gt;</code></p>
+<h3 id='url-parameters-3'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>ID</td>
+<td>The ID of the message to retrieve</td>
+</tr>
+</tbody></table>
+<h2 id='delete-a-specific-message'>Delete a Specific message</h2><div class="highlight"><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'growthgenius'</span>
+
+<span class="n">api</span> <span class="o">=</span> <span class="n">growthgenius</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s2">"YOUR API KEY HERE"</span><span class="p">)</span>
+<span class="n">api</span><span class="p">.</span><span class="nf">messages</span><span class="p">.</span><span class="nf">delete</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">growthgenius</span>
+
+<span class="n">api</span> <span class="o">=</span> <span class="n">growthgenius</span><span class="p">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">"YOUR API KEY HERE"</span><span class="p">)</span>
+<span class="n">api</span><span class="p">.</span><span class="n">messages</span><span class="p">.</span><span class="n">delete</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.growthgenius.com/integrations/v1/messages/2"</span> <span class="se">\</span>
+  <span class="nt">-X</span> DELETE <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"Authorization: YOUR API KEY HERE"</span>
+</code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="nx">growthgenius</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">growthgenius</span><span class="dl">"</span><span class="p">);</span>
+
+<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">growthgenius</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="dl">"</span><span class="s2">YOUR API KEY HERE</span><span class="dl">"</span><span class="p">);</span>
+<span class="kd">let</span> <span class="nx">max</span> <span class="o">=</span> <span class="nx">api</span><span class="p">.</span><span class="nx">messages</span><span class="p">.</span><span class="k">delete</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+</code></pre></div>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"deleted"</span><span class="p">:</span><span class="w"> </span><span class="s2">":("</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>This endpoint deletes a specific message.</p>
+<h3 id='http-request-12'>HTTP Request</h3>
+<p><code>DELETE https://api.growthgenius.com/integrations/v1/messages/&lt;ID&gt;</code></p>
+<h3 id='url-parameters-4'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>ID</td>
+<td>The ID of the message to delete</td>
 </tr>
 </tbody></table>
 <h1 id='errors'>Errors</h1>
